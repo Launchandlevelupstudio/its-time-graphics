@@ -62,3 +62,8 @@ Owner name and short bio, years in business · full address, hours, general emai
 - **Contact:** the service-area map placeholder is replaced by a "Service area" section with a static map (`assets/img/its-time-graphics-service-area-map-frederick-md.webp`, 1600×1000, plus a square `-mobile.webp` for ≤700px). It shows a ~110-mile radius (approx. 2 hours) around Frederick, MD, drawn from Natural Earth data (public domain); generator script kept outside the site at /workspace/itg-map/make2.py.
 - **About (mobile):** fixed the gap above "Service area" on ≤900px. `section.s{padding:88px 0}` outranked the `.shop-s`/`.sa-m` overrides; the overrides now use `section.s.shop-s` / `section.s.sa-m` (48px gap). Desktop unchanged.
 - **Footer social:** Instagram and Facebook on one row, Google 5-star reviews centered below, on every screen size (all pages).
+
+
+## Update 2026-10-18 (map tweak)
+
+- Contact: per Daniel, the service-area map moved back into the original placeholder spot under "Talk to us", smaller (max 360px, square). The legend box, caption and on-image credit are gone. File: `assets/img/its-time-graphics-service-area-map-frederick-md-v2.webp` (Natural Earth, public domain). The old full-width Service area section and the two earlier map files were removed.
