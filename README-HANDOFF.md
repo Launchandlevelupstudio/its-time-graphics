@@ -56,3 +56,9 @@ Owner name and short bio, years in business · full address, hours, general emai
 - Do not invent business facts, specs, warranties, reviews or client names. Leave visible placeholders.
 - Keep the look: dark header/hero/footer, yellow buttons, Maryland-flag accents, short header.
 - Check every change on desktop and a real phone.
+
+## Update 2026-10-18 (later)
+- **Our Work:** the "[Owner: confirm each job and client permission]" chip in the page intro was removed at the owner's request. (Photo permissions in item 4 still apply.)
+- **Contact:** the service-area map placeholder is replaced by a "Service area" section with a static map (`assets/img/its-time-graphics-service-area-map-frederick-md.webp`, 1600×1000, plus a square `-mobile.webp` for ≤700px). It shows a ~110-mile radius (approx. 2 hours) around Frederick, MD, drawn from Natural Earth data (public domain); generator script kept outside the site at /workspace/itg-map/make2.py.
+- **About (mobile):** fixed the gap above "Service area" on ≤900px. `section.s{padding:88px 0}` outranked the `.shop-s`/`.sa-m` overrides; the overrides now use `section.s.shop-s` / `section.s.sa-m` (48px gap). Desktop unchanged.
+- **Footer social:** Instagram and Facebook on one row, Google 5-star reviews centered below, on every screen size (all pages).
