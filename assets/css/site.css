@@ -88,4 +88,4 @@ footer .soc{display:grid;grid-template-columns:auto auto;justify-content:start;w
 .card p.cat{color:var(--ink);font-weight:600}
 
 .sa-m{display:none}@media(min-width:901px){.shop-l{display:flex;flex-direction:column;align-self:stretch}.sa-d{margin-top:auto;padding-top:32px}.sa-d p:last-child{margin-bottom:0}}@media(max-width:900px){.sa-d{display:none}section.s.sa-m{display:block;padding-top:0}section.s.shop-s{padding-bottom:48px}}
-.ph.map{aspect-ratio:1/1;max-width:360px;margin-top:24px;border-color:var(--line);background:#16181c;padding:0}
+.sa-h3{margin:32px 0 0;font-size:1.5rem}.ph.map{aspect-ratio:1/1;max-width:360px;margin-top:14px;border-color:var(--line);background:#16181c;padding:0}
