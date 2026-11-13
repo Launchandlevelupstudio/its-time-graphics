@@ -23,6 +23,11 @@ if(qf.website.value||Date.now()-t0<3000){e.preventDefault();return}
 if(!qf.name.value||!/.+@.+\..+/.test(qf.email.value)||!qf.consent.checked){e.preventDefault();st.textContent='Please add your name, a valid email, and tick the consent box.';return}
 if(qf.getAttribute('action')==='FORM_ENDPOINT'){e.preventDefault();st.textContent='Form not connected yet. Call 240-531-3996 to request a quote.';return}
 track('quote_form_submit',{fleet_size:qf.fleet.value,project_type:qf.project.value})})}
+/* real walkaround: play only when on screen, and never over a reduced-motion request */
+$$('.clipv video').forEach(function(v){var box=v.closest('.clipv');
+if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){v.pause();return}
+function go(){var p=v.play();if(p&&p.then)p.then(function(){box.classList.add('is-playing')}).catch(function(){})}
+if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;go();io.disconnect()})},{rootMargin:'160px'});io.observe(box)}else go()});
 /* tracking */
 document.addEventListener('click',function(e){var a=e.target.closest('a');if(!a)return;
 if(a.href.indexOf('tel:')===0)track('click_to_call',{location:a.dataset.loc||'unknown'});

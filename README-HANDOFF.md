@@ -67,3 +67,12 @@ Owner name and short bio, years in business · full address, hours, general emai
 ## Update 2026-10-18 (map tweak)
 
 - Contact: per Daniel, the service-area map moved back into the original placeholder spot under "Talk to us", smaller (max 360px, square). The legend box, caption and on-image credit are gone. File: `assets/img/its-time-graphics-service-area-map-frederick-md-v2.webp` (Natural Earth, public domain). The old full-width Service area section and the two earlier map files were removed.
+
+## Update 2026-11-13 (real work photos)
+
+- Replaced the AI harbor hero with a full-vehicle BubbleGum limousine photo. The hero is a side-by-side layout (copy, then the whole photo) so the vehicle is not cover-cropped at desktop or phone width.
+- Fleet programs now lead with Commercial Fleets, then Law Enforcement & Security, Municipal (its own page), and Upfitter Partnerships. `/fleet-graphics/police-municipal/` redirects to `/fleet-graphics/law-enforcement-security/`.
+- Homepage includes the Atlas International Security walkaround: muted, looping, playsinline, dark edge overlay, poster still, and no autoplay when `prefers-reduced-motion` is set. The file loads only as the section nears the screen.
+- Galleries use each photo’s own aspect ratio and `object-fit: contain`, so the layout does not crop vehicles, tires, signs or the portrait.
+- Left the site logo as-is. `2026 LOGO VERSION.pdf` is a different stopwatch wordmark, not an update of the current “IT’S TIME GRAPHICS / DESIGN + PRINT” logo. `DPPSolution.pdf` is a “Your Design + Print & Installation Solution” lockup, not a logo.
+- Still open from earlier: quote form endpoint, unverified materials/certifications on the law enforcement page, warranty terms, photo permissions (plates and phone numbers are visible on several vehicles), and analytics.
