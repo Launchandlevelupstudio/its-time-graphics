@@ -275,15 +275,31 @@ function el(tag, attrs){
   for(var i=2;i<arguments.length;i++) if(arguments[i]) n.appendChild(arguments[i]);
   return n;
 }
-function imgEl(root, photo, eager){
+function variantSrc(photo, width){
+  return photo.src.replace(/\.webp$/i, "-"+width+"w.webp");
+}
+/* Thumbnails use the 800w (and 1600w, when the file is wider) variants.
+   The lightbox keeps the original file. */
+function imgEl(root, photo, eager, sizes){
+  var full = root+"assets/img/"+photo.src;
+  var src = full;
   var img = el("img",{
-    src:root+"assets/img/"+photo.src,
     alt:photo.alt,
     width:String(photo.w),
     height:String(photo.h),
     decoding:"async",
     loading:eager?"eager":"lazy"
   });
+  if(photo.w>800){
+    var small = root+"assets/img/"+variantSrc(photo, 800);
+    src = small;
+    var set = small+" 800w";
+    if(photo.w>1600) set += ", "+root+"assets/img/"+variantSrc(photo, 1600)+" 1600w";
+    else set += ", "+full+" "+photo.w+"w";
+    img.setAttribute("srcset", set);
+    img.setAttribute("sizes", sizes || "(max-width: 720px) calc(100vw - 48px), 560px");
+  }
+  img.setAttribute("src", src);
   return img;
 }
 function countLabel(n){return n+" photo"+(n===1?"":"s");}
@@ -331,7 +347,7 @@ function step(d){
 }
 
 function buildLightbox(){
-  lbTitle = el("h2",{id:"lb-title", class:"sr", text:"Photo"});
+  lbTitle = el("p",{id:"lb-title", class:"sr", text:"Photo"});
   lbImg = el("img",{alt:""});
   var stage = el("div",{class:"lb-stage"});
   stage.appendChild(lbImg);
@@ -382,7 +398,7 @@ function deptCard(root, dept){
   var lead = dept.photos[0];
   var frame = el("span",{class:"dept-lead"});
   frame.style.aspectRatio = lead.w+" / "+lead.h;
-  var image = imgEl(root, lead, false);
+  var image = imgEl(root, lead, false, "(max-width: 799px) 280px, (max-width: 1099px) 420px, 520px");
   image.alt = "";
   image.style.objectPosition = lead.pos || "center center";
   frame.appendChild(image);
@@ -440,7 +456,7 @@ function renderWork(){
       return {src:root+"assets/img/"+p.src, w:p.w, h:p.h, alt:p.alt, caption:p.caption};
     });
     WORK.forEach(function(p, i){
-      var image = imgEl(root, p, false);
+      var image = imgEl(root, p, false, "(max-width: 900px) 33vw, 400px");
       image.alt = "";
       image.style.setProperty("--pos", p.pos || "center center");
       image.style.objectPosition = p.pos || "center center";

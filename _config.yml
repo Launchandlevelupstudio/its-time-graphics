@@ -1,0 +1,21 @@
+# GitHub Pages publishes this repo from the root and runs Jekyll by default.
+# There is no .nojekyll file. If one is added later, Jekyll stops running and
+# `exclude` is ignored, so these paths would be served again.
+#
+# Setting `exclude` replaces Jekyll's default list, so the defaults are repeated.
+exclude:
+  - .sass-cache/
+  - .jekyll-cache/
+  - gemfiles/
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - README-HANDOFF.md
+  - README.md
+  - source-assets/
+  - screenshots/
+  - _site/
