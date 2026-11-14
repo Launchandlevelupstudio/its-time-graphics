@@ -12,11 +12,12 @@ fleet-graphics/police-municipal/index.html
 fleet-graphics/commercial-fleets/index.html
 fleet-graphics/upfitter-partnerships/index.html
 other-services/index.html                   Signs & banners, decals, apparel, design
-our-work/index.html                         Filterable project grid
+our-work/index.html                         Fleet showcases by department, then the other-work grid
 about/index.html
 contact/index.html                          Quote form (fields change by project type)
 404.html  robots.txt  sitemap.xml
 assets/css/site.css   assets/js/site.js     shared by every page
+assets/js/fleet.js                          showcase + Our Work photo list and lightbox
 assets/img/                                 web-sized WebP photos + logo (about 1.9 MB total)
 source-assets/                              full-size photos, logo file, design mockups, original prompt
 screenshots/                                reference renders
@@ -76,3 +77,23 @@ Owner name and short bio, years in business · full address, hours, general emai
 - Galleries use each photo’s own aspect ratio and `object-fit: contain`, so the layout does not crop vehicles, tires, signs or the portrait.
 - Left the site logo as-is. `2026 LOGO VERSION.pdf` is a different stopwatch wordmark, not an update of the current “IT’S TIME GRAPHICS / DESIGN + PRINT” logo. `DPPSolution.pdf` is a “Your Design + Print & Installation Solution” lockup, not a logo.
 - Still open from earlier: quote form endpoint, unverified materials/certifications on the law enforcement page, warranty terms, photo permissions (plates and phone numbers are visible on several vehicles), and analytics.
+
+## Update 2026-11-14 (fleet showcases)
+
+Our Work is no longer a filterable mix of every photo. The portfolio is two layers, both driven by `assets/js/fleet.js` so the pages cannot drift apart:
+
+1. **Fleet showcases** on `/our-work/` (Commercial fleet, Law enforcement & security, Municipal). The same cards are mounted on `/fleet-graphics/commercial-fleets/`, `/fleet-graphics/law-enforcement-security/`, and `/fleet-graphics/municipal/`.
+2. **More work** — an Instagram-style 3-column square grid of every other photo. Captions show in the lightbox (and on hover on a fine pointer). Nothing in a showcase is repeated in this grid.
+
+A department card shows one lead photo (the file’s own aspect ratio, so the vehicle is not cover-cropped), the department name, a one-line description of what the photos actually show, and the photo count. The card opens one lightbox: full image (`object-fit: contain`), captions, previous/next, swipe, Close, Esc, and a tab loop. Hero files (`p24-hero*`), the logo, the Open Graph image, and the service-area map are not in either gallery.
+
+### How to add ACI photos
+
+ACI is the only commercial-fleet card. There are no ACI photos in the repo, so the card is a text placeholder (“ACI fleet showcase coming soon.”). Do not invent a photo or a claim.
+
+1. Export the real photos to WebP in `assets/img/`. Name them `aci-something.webp`.
+2. Open `assets/js/fleet.js`. Add a `pic()` for that file to `CATALOG`, then list the filename in `ACI.photos = take([...])`. Our Work is whatever is left in the catalog after every showcase filename is removed, so the new photo cannot also show up in the grid.
+3. Set `ACI.pending` to `false` and replace `ACI.line` with a short factual line about what those photos show. No vehicle counts, dates, or contract language.
+4. Run `node assets/js/check-gallery.js`. It fails if a showcase file is repeated in the grid, if an excluded near-duplicate is used, or if the old static grid (`id="wg"`) is back in the HTML. The placeholder becomes a normal department card on Our Work and on Commercial Fleets. Grid thumbnails are square and use `object-fit: cover`. Set `pos` (an `object-position` value) when the subject is not in the center of the file. The lightbox still shows the whole photo.
+
+Near-duplicates left out of both galleries, on purpose: `berwyn-heights-police-mach-e-suv-side-card-4x3.webp` (crop of the Mach-E side wrap), `p2-police-badge-closeup.webp` (same Mount Rainier badge), `p4-special-police-suv.webp` (same Children’s National door close-up already in the collage). The Mount Rainier parking-enforcement Bolt is in More work, not under Mount Rainier Police — the door says Parking Enforcement.
