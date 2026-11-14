@@ -92,8 +92,8 @@ A department card shows one lead photo (the file’s own aspect ratio, so the ve
 ACI is the only commercial-fleet card. There are no ACI photos in the repo, so the card is a text placeholder (“ACI fleet showcase coming soon.”). Do not invent a photo or a claim.
 
 1. Export the real photos to WebP in `assets/img/`. Name them `aci-something.webp`.
-2. Open `assets/js/fleet.js` and append objects to the `ACI.photos` array. The comment at the top of that file has the field list (`src`, `w`, `h`, `alt`, `caption`).
+2. Open `assets/js/fleet.js`. Add a `pic()` for that file to `CATALOG`, then list the filename in `ACI.photos = take([...])`. Our Work is whatever is left in the catalog after every showcase filename is removed, so the new photo cannot also show up in the grid.
 3. Set `ACI.pending` to `false` and replace `ACI.line` with a short factual line about what those photos show. No vehicle counts, dates, or contract language.
-4. The placeholder becomes a normal department card on Our Work and on Commercial Fleets. Wide or tall photos in the Our Work grid that would cut a vehicle, sign, or face use `fit:"contain"` inside the square. Set `pos` (an `object-position` value) only when `fit` stays `"cover"`.
+4. Run `node assets/js/check-gallery.js`. It fails if a showcase file is repeated in the grid, if an excluded near-duplicate is used, or if the old static grid (`id="wg"`) is back in the HTML. The placeholder becomes a normal department card on Our Work and on Commercial Fleets. Wide or tall photos in the Our Work grid that would cut a vehicle, sign, or face use `fit:"contain"` inside the square. Set `pos` (an `object-position` value) only when `fit` stays `"cover"`.
 
 Near-duplicates left out of both galleries, on purpose: `berwyn-heights-police-mach-e-suv-side-card-4x3.webp` (crop of the Mach-E side wrap), `p2-police-badge-closeup.webp` (same Mount Rainier badge), `p4-special-police-suv.webp` (same Children’s National door close-up already in the collage). The Mount Rainier parking-enforcement Bolt is in More work, not under Mount Rainier Police — the door says Parking Enforcement.

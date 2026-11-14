@@ -4,9 +4,10 @@
    ADDING ACI PHOTOS
    Photos do not exist yet. Do not drop in a stand-in image.
    1. Export real photos to assets/img/ as WebP. Name them aci-something.webp.
-   2. Append objects to the ACI photos array below (src, w, h, alt, caption).
+   2. Add a pic() entry to CATALOG in this file, then list that filename in the ACI.photos take() call.
    3. Set ACI.pending to false and replace ACI.line with a short factual description
       of what those photos actually show. Do not add vehicle counts, dates, or contract claims.
+      The Our Work grid drops that filename automatically.
    The commercial card switches from the "coming soon" placeholder to a photo card
    as soon as that array has at least one photo.
 
@@ -44,95 +45,49 @@ var ACI = {
   ]
 };
 
-var LAW = [
-  {
-    id:"berwyn-heights-police",
-    name:"Berwyn Heights Police",
-    line:"Patrol fleet graphics",
-    photos:[
-      pic("berwyn-heights-police-suv-side.webp",1600,901,"Black and white Berwyn Heights Police SUV, full side view in a parking lot"),
-      pic("berwyn-heights-police-mach-e-suv-side-wrap.webp",1320,841,"Berwyn Heights Police Mustang Mach-E with a black and white wrap, side view"),
-      pic("berwyn-heights-police-mach-e-suv-front-wrap.webp",1320,866,"Berwyn Heights Police Mustang Mach-E, front three-quarter view"),
-      pic("berwyn-heights-police-charger-sedan-wrap.webp",1320,859,"Berwyn Heights Police Dodge Charger with a black and white wrap"),
-      pic("berwyn-heights-police-suv-rear-maryland-flag.webp",1320,1168,"Rear of a Berwyn Heights Police SUV with a Maryland flag graphic across the tailgate"),
-      pic("berwyn-heights-police-suv-hood-maryland-flag-grille.webp",1320,1329,"Hood of a Berwyn Heights Police SUV with POLICE lettering and a Maryland flag grille graphic"),
-      pic("berwyn-heights-police-suv-emergency-911-decal.webp",1320,1174,"Rear quarter of a Berwyn Heights Police SUV with Emergency Dial 911 lettering"),
-      pic("berwyn-heights-tahoe-side.webp",1131,848,"Black and gray Berwyn Heights Police Chevy Tahoe, full side view"),
-      pic("berwyn-heights-tahoe-driver-side.webp",1280,960,"Driver side of a black and gray Berwyn Heights Police Chevy Tahoe"),
-      pic("berwyn-heights-tahoe-rear.webp",848,1131,"Rear of a Berwyn Heights Police Chevy Tahoe with a Maryland flag graphic on the tailgate")
-    ]
-  },
-  {
-    id:"mount-rainier-police",
-    name:"Mount Rainier Police",
-    line:"Patrol SUV and door badge",
-    /* p15 is filed under a generic name; the door reads City of Mount Rainier Police.
-       The parking-enforcement Bolt stays in Our Work: the door says Parking Enforcement, not Police. */
-    photos:[
-      pic("p15-police-suv.webp",1000,750,"White City of Mount Rainier Police SUV, number 78, in a shop"),
-      pic("mount-rainier-police-badge.webp",1200,1600,"Close-up of a Mount Rainier Police badge on a vehicle door")
-    ]
-  },
-  {
-    id:"atlas-security",
-    name:"Atlas Security",
-    line:"Door shield decal",
-    photos:[
-      pic("atlas-security-shield.webp",1600,1600,"Atlas International Security shield decal on a vehicle door")
-    ]
-  },
-  {
-    id:"childrens-national",
-    name:"Children\u2019s National Special Police",
-    line:"Special police SUV graphics",
-    photos:[
-      pic("childrens-national-special-police.webp",1600,1600,"Children's National Special Police SUV: a side view and a close view of the door graphic")
-    ]
-  }
-];
+/* One record per gallery file. Showcases name the files they use.
+   WORK is everything in CATALOG that a showcase did not take. */
+var EXCLUDED = {
+  "p24-hero-harbor-police.webp":"hero only",
+  "p24-hero-harbor-police-v2.webp":"hero only",
+  "p24-hero-harbor-police-wide-v6.webp":"hero only",
+  "p24-hero-harbor-police-wide-v7.webp":"hero only",
+  "logo.webp":"logo",
+  "og-image.jpg":"social card",
+  "its-time-graphics-service-area-map-frederick-md-v2.webp":"service-area map",
+  "berwyn-heights-police-mach-e-suv-side-card-4x3.webp":"crop of the Mach-E side wrap",
+  "p2-police-badge-closeup.webp":"same Mount Rainier badge",
+  "p4-special-police-suv.webp":"same Children's National door close-up"
+};
 
-var MUNICIPAL = [
-  {
-    id:"town-of-brentwood",
-    name:"Town of Brentwood",
-    line:"Town vehicles and signs",
-    /* p9 is a generic filename; the door reads POLICE BRENTWOOD. */
-    photos:[
-      pic("brentwood-public-works-van.webp",1600,1600,"White Brentwood public works van with a green and gold stripe and the town seal, full side view"),
-      pic("brentwood-code-enforcement-leaf.webp",1600,1200,"White Brentwood code enforcement Nissan Leaf, full side view"),
-      pic("brentwood-code-enforcement-sedan.webp",901,1600,"White Brentwood code enforcement sedan, full side view"),
-      pic("p9-police-sedan.webp",1200,950,"White Brentwood Police sedan, full side view"),
-      pic("brentwood-tailgate-frequent-stops.webp",1600,1600,"Brentwood pickup tailgate with yellow and red Frequent Stops chevrons"),
-      pic("brentwood-seal-decal.webp",1600,1600,"Brentwood, Maryland seal decal on a white vehicle door"),
-      pic("brentwood-seal-sign.webp",1600,1600,"Round Brentwood, Maryland seal mounted on a wall"),
-      pic("brentwood-police-shield-sign.webp",1600,1600,"Brentwood Police shield sign")
-    ]
-  },
-  {
-    id:"berwyn-heights-municipal",
-    name:"Berwyn Heights",
-    line:"Recycling trucks and town signs",
-    /* p5 is a generic filename; the door reads Berwyn Heights, MD Public Works. */
-    photos:[
-      pic("berwyn-heights-recycling-truck.webp",1600,1600,"Berwyn Heights recycling truck with a Recycle for the Bees and Trees graphic"),
-      pic("p5-public-works-truck.webp",1200,950,"Blue Berwyn Heights public works recycling truck with a Let's Save the Planet graphic"),
-      pic("berwyn-heights-municipal-signs.webp",1086,1448,"Collage of Town of Berwyn Heights signs, including a leaf-collection notice and a sports park sign")
-    ]
-  },
-  {
-    id:"university-park-code",
-    name:"University Park Code Enforcement",
-    line:"Code compliance vehicle graphics",
-    photos:[
-      pic("university-park-code-escape.webp",1600,1600,"White University Park code compliance Ford Escape, rear three-quarter view"),
-      pic("university-park-code-door.webp",1600,1600,"University Park Code Compliance lettering on a vehicle door")
-    ]
-  }
-];
-
-/* Every other photo. fit:contain keeps a wide vehicle, a tall banner, or a storefront whole inside the square.
-   pos is only used when fit is cover. Hoodie uses a high bias so the face stays in the square. */
-var WORK = [
+var CATALOG = [
+  pic("berwyn-heights-police-suv-side.webp",1600,901,"Black and white Berwyn Heights Police SUV, full side view in a parking lot"),
+  pic("berwyn-heights-police-mach-e-suv-side-wrap.webp",1320,841,"Berwyn Heights Police Mustang Mach-E with a black and white wrap, side view"),
+  pic("berwyn-heights-police-mach-e-suv-front-wrap.webp",1320,866,"Berwyn Heights Police Mustang Mach-E, front three-quarter view"),
+  pic("berwyn-heights-police-charger-sedan-wrap.webp",1320,859,"Berwyn Heights Police Dodge Charger with a black and white wrap"),
+  pic("berwyn-heights-police-suv-rear-maryland-flag.webp",1320,1168,"Rear of a Berwyn Heights Police SUV with a Maryland flag graphic across the tailgate"),
+  pic("berwyn-heights-police-suv-hood-maryland-flag-grille.webp",1320,1329,"Hood of a Berwyn Heights Police SUV with POLICE lettering and a Maryland flag grille graphic"),
+  pic("berwyn-heights-police-suv-emergency-911-decal.webp",1320,1174,"Rear quarter of a Berwyn Heights Police SUV with Emergency Dial 911 lettering"),
+  pic("berwyn-heights-tahoe-side.webp",1131,848,"Black and gray Berwyn Heights Police Chevy Tahoe, full side view"),
+  pic("berwyn-heights-tahoe-driver-side.webp",1280,960,"Driver side of a black and gray Berwyn Heights Police Chevy Tahoe"),
+  pic("berwyn-heights-tahoe-rear.webp",848,1131,"Rear of a Berwyn Heights Police Chevy Tahoe with a Maryland flag graphic on the tailgate"),
+  pic("p15-police-suv.webp",1000,750,"White City of Mount Rainier Police SUV, number 78, in a shop"),
+  pic("mount-rainier-police-badge.webp",1200,1600,"Close-up of a Mount Rainier Police badge on a vehicle door"),
+  pic("atlas-security-shield.webp",1600,1600,"Atlas International Security shield decal on a vehicle door"),
+  pic("childrens-national-special-police.webp",1600,1600,"Children's National Special Police SUV: a side view and a close view of the door graphic"),
+  pic("brentwood-public-works-van.webp",1600,1600,"White Brentwood public works van with a green and gold stripe and the town seal, full side view"),
+  pic("brentwood-code-enforcement-leaf.webp",1600,1200,"White Brentwood code enforcement Nissan Leaf, full side view"),
+  pic("brentwood-code-enforcement-sedan.webp",901,1600,"White Brentwood code enforcement sedan, full side view"),
+  pic("p9-police-sedan.webp",1200,950,"White Brentwood Police sedan, full side view"),
+  pic("brentwood-tailgate-frequent-stops.webp",1600,1600,"Brentwood pickup tailgate with yellow and red Frequent Stops chevrons"),
+  pic("brentwood-seal-decal.webp",1600,1600,"Brentwood, Maryland seal decal on a white vehicle door"),
+  pic("brentwood-seal-sign.webp",1600,1600,"Round Brentwood, Maryland seal mounted on a wall"),
+  pic("brentwood-police-shield-sign.webp",1600,1600,"Brentwood Police shield sign"),
+  pic("berwyn-heights-recycling-truck.webp",1600,1600,"Berwyn Heights recycling truck with a Recycle for the Bees and Trees graphic"),
+  pic("p5-public-works-truck.webp",1200,950,"Blue Berwyn Heights public works recycling truck with a Let's Save the Planet graphic"),
+  pic("berwyn-heights-municipal-signs.webp",1086,1448,"Collage of Town of Berwyn Heights signs, including a leaf-collection notice and a sports park sign"),
+  pic("university-park-code-escape.webp",1600,1600,"White University Park code compliance Ford Escape, rear three-quarter view"),
+  pic("university-park-code-door.webp",1600,1600,"University Park Code Compliance lettering on a vehicle door"),
   pic("amazing-earth-landscaping-truck-trailer.webp",1600,1600,"Black Amazing Earth Landscaping pickup towing a lettered trailer, both vehicles fully in frame"),
   pic("bubblegum-limo-side.webp",1600,1600,"White stretch limousine with pink BubbleGum lettering, full side view in a parking lot"),
   pic("kitchen-renovation-transit.webp",1600,1600,"Black Ford Transit van with kitchen renovation lettering, full side view"),
@@ -171,6 +126,138 @@ var WORK = [
   pic("its-time-hoodie-portrait.webp",900,1600,"Person wearing a black hoodie with the It's Time Graphics logo",{pos:"center 22%"})
 ];
 
+function findPhoto(src){
+  for(var i=0;i<CATALOG.length;i++) if(CATALOG[i].src===src) return CATALOG[i];
+  throw new Error("Showcase file is not in the catalog: "+src);
+}
+function take(srcs){return srcs.map(findPhoto);}
+
+var LAW = [
+  {
+    id:"berwyn-heights-police",
+    name:"Berwyn Heights Police",
+    line:"Patrol fleet graphics",
+    photos:take([
+      "berwyn-heights-police-suv-side.webp",
+      "berwyn-heights-police-mach-e-suv-side-wrap.webp",
+      "berwyn-heights-police-mach-e-suv-front-wrap.webp",
+      "berwyn-heights-police-charger-sedan-wrap.webp",
+      "berwyn-heights-police-suv-rear-maryland-flag.webp",
+      "berwyn-heights-police-suv-hood-maryland-flag-grille.webp",
+      "berwyn-heights-police-suv-emergency-911-decal.webp",
+      "berwyn-heights-tahoe-side.webp",
+      "berwyn-heights-tahoe-driver-side.webp",
+      "berwyn-heights-tahoe-rear.webp"
+    ])
+  },
+  {
+    id:"mount-rainier-police",
+    name:"Mount Rainier Police",
+    line:"Patrol SUV and door badge",
+    /* p15 is filed under a generic name; the door reads City of Mount Rainier Police.
+       The parking-enforcement Bolt stays in Our Work: the door says Parking Enforcement, not Police. */
+    photos:take([
+      "p15-police-suv.webp",
+      "mount-rainier-police-badge.webp"
+    ])
+  },
+  {
+    id:"atlas-security",
+    name:"Atlas Security",
+    line:"Door shield decal",
+    photos:take(["atlas-security-shield.webp"])
+  },
+  {
+    id:"childrens-national",
+    name:"Children\u2019s National Special Police",
+    line:"Special police SUV graphics",
+    photos:take(["childrens-national-special-police.webp"])
+  }
+];
+
+var MUNICIPAL = [
+  {
+    id:"town-of-brentwood",
+    name:"Town of Brentwood",
+    line:"Town vehicles and signs",
+    /* p9 is a generic filename; the door reads POLICE BRENTWOOD. */
+    photos:take([
+      "brentwood-public-works-van.webp",
+      "brentwood-code-enforcement-leaf.webp",
+      "brentwood-code-enforcement-sedan.webp",
+      "p9-police-sedan.webp",
+      "brentwood-tailgate-frequent-stops.webp",
+      "brentwood-seal-decal.webp",
+      "brentwood-seal-sign.webp",
+      "brentwood-police-shield-sign.webp"
+    ])
+  },
+  {
+    id:"berwyn-heights-municipal",
+    name:"Berwyn Heights",
+    line:"Recycling trucks and town signs",
+    /* p5 is a generic filename; the door reads Berwyn Heights, MD Public Works. */
+    photos:take([
+      "berwyn-heights-recycling-truck.webp",
+      "p5-public-works-truck.webp",
+      "berwyn-heights-municipal-signs.webp"
+    ])
+  },
+  {
+    id:"university-park-code",
+    name:"University Park Code Enforcement",
+    line:"Code compliance vehicle graphics",
+    photos:take([
+      "university-park-code-escape.webp",
+      "university-park-code-door.webp"
+    ])
+  }
+];
+
+/* ACI photos: add the pic() to CATALOG, then list the filename here. Leave this empty until real photos exist. */
+ACI.photos = take([
+  /* "aci-example.webp" */
+]);
+
+function showcaseSrcSet(){
+  var set = {};
+  function add(list){
+    list.forEach(function(p){
+      if(set[p.src]) throw new Error("Duplicate showcase photo: "+p.src);
+      if(EXCLUDED[p.src]) throw new Error("Showcase uses an excluded file: "+p.src);
+      set[p.src] = true;
+    });
+  }
+  add(ACI.photos);
+  LAW.forEach(function(d){add(d.photos);});
+  MUNICIPAL.forEach(function(d){add(d.photos);});
+  return set;
+}
+var SHOWCASE_SRCS = showcaseSrcSet();
+/* Our Work is the catalog minus every showcase file and minus excluded near-duplicates. */
+var WORK = CATALOG.filter(function(p){
+  return !SHOWCASE_SRCS[p.src] && !EXCLUDED[p.src];
+});
+
+function assertGallery(){
+  var seen = {};
+  CATALOG.forEach(function(p){
+    if(seen[p.src]) throw new Error("Duplicate catalog photo: "+p.src);
+    seen[p.src] = true;
+    if(EXCLUDED[p.src]) throw new Error("Excluded file is in the catalog: "+p.src);
+  });
+  Object.keys(SHOWCASE_SRCS).forEach(function(src){
+    if(!seen[src]) throw new Error("Showcase photo missing from catalog: "+src);
+  });
+  var overlap = WORK.filter(function(p){return SHOWCASE_SRCS[p.src] || EXCLUDED[p.src];});
+  console.assert(overlap.length===0, "Our Work repeats a showcase or excluded photo", overlap.map(function(p){return p.src;}));
+  if(overlap.length) throw new Error("Our Work repeats a showcase or excluded photo: "+overlap.map(function(p){return p.src;}).join(", "));
+  if(Object.keys(SHOWCASE_SRCS).length + WORK.length !== CATALOG.length){
+    throw new Error("Gallery count mismatch: "+Object.keys(SHOWCASE_SRCS).length+" showcase + "+WORK.length+" grid != "+CATALOG.length+" catalog");
+  }
+}
+assertGallery();
+
 var SECTIONS = [
   {id:"commercial", title:"Commercial fleet", cols:"", items:[ACI]},
   {id:"law", title:"Law enforcement & security", cols:"", items:LAW},
@@ -190,8 +277,30 @@ function el(tag, attrs){
 }
 function imgEl(root, photo, eager){
   var img = el("img",{src:root+"assets/img/"+photo.src, alt:photo.alt, width:String(photo.w), height:String(photo.h), decoding:"async"});
-  if(!eager) img.loading = "lazy";
+  img.loading = eager ? "eager" : "lazy";
   return img;
+}
+/* Native loading=lazy misses some images inside buttons. When a thumbnail
+   nears the viewport, force it to decode so a scroll never leaves a blank cell. */
+function armLazy(rootEl){
+  var imgs = rootEl.querySelectorAll("img[loading=lazy]");
+  if(!("IntersectionObserver" in window)){
+    Array.prototype.forEach.call(imgs, function(img){img.loading="eager";});
+    return;
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(!en.isIntersecting) return;
+      var img = en.target;
+      img.loading = "eager";
+      if(!img.complete || !img.naturalWidth){
+        var src = img.getAttribute("src");
+        if(src) img.src = src;
+      }
+      io.unobserve(img);
+    });
+  }, {rootMargin:"900px 0px"});
+  Array.prototype.forEach.call(imgs, function(img){io.observe(img);});
 }
 function countLabel(n){return n+" photo"+(n===1?"":"s");}
 
@@ -337,6 +446,7 @@ function renderShowcases(){
       }
       mount.appendChild(block);
     });
+    armLazy(mount);
   });
 }
 function renderWork(){
@@ -358,10 +468,21 @@ function renderWork(){
       grid.appendChild(btn);
     });
     mount.appendChild(grid);
+    armLazy(grid);
   });
 }
 
-buildLightbox();
-renderShowcases();
-renderWork();
+var galleryReport = {
+  assertGallery:assertGallery,
+  showcaseCount:Object.keys(SHOWCASE_SRCS).length,
+  gridCount:WORK.length,
+  catalogCount:CATALOG.length,
+  overlap:WORK.filter(function(p){return SHOWCASE_SRCS[p.src];}).map(function(p){return p.src;})
+};
+if(typeof module!=="undefined" && module.exports) module.exports = galleryReport;
+if(typeof document!=="undefined"){
+  buildLightbox();
+  renderShowcases();
+  renderWork();
+}
 })();
