@@ -96,32 +96,32 @@ var CATALOG = [
   pic("cottage-city-police-shuttle.webp",1600,1600,"Cottage City Police Department community engagement shuttle, full side view"),
   pic("cottage-city-police-charger.webp",960,720,"Silver Cottage City Police Dodge Charger with a purple POLICE wrap, full side view"),
   pic("bladensburg-police-door.webp",1600,1600,"Bladensburg Police door badge and POLICE lettering on a black SUV"),
-  pic("bladensburg-police-upfit.webp",1280,960,"Bladensburg Police SUV with the hood open in an upfit shop, full side view",{fit:"contain"}),
+  pic("bladensburg-police-upfit.webp",1280,960,"Bladensburg Police SUV with the hood open in an upfit shop, full side view"),
   pic("university-park-police-door.webp",1600,1600,"University Park Police door graphic, unit 39, on a white SUV"),
-  pic("security-patrol-suv.webp",1600,901,"Tan SUV with red and black SECURITY PATROL graphics, full side view",{fit:"contain"}),
-  pic("security-patrol-sedan.webp",1600,901,"Silver sedan with red and black SECURITY PATROL graphics, full side view",{fit:"contain"}),
+  pic("security-patrol-suv.webp",1600,901,"Tan SUV with red and black SECURITY PATROL graphics, full side view"),
+  pic("security-patrol-sedan.webp",1600,901,"Silver sedan with red and black SECURITY PATROL graphics, full side view"),
   pic("saberone-security-door.webp",1600,1600,"Saberone Security door lettering and badge on a white SUV"),
   pic("mount-rainier-parking-enforcement-bolt.webp",1600,1600,"White City of Mount Rainier parking enforcement Chevy Bolt, number 95, front three-quarter view"),
   pic("p21-parking-enforcement-car.webp",1000,1000,"White City of Mount Rainier parking enforcement Chevy Bolt, number 95, side view"),
-  pic("p1-detailing-van.webp",768,608,"White service van with blue striped lettering",{fit:"contain"}),
-  pic("p3-utility-truck.webp",768,608,"White utility truck with blue and white graphics",{fit:"contain"}),
-  pic("p6-plumbing-van.webp",1200,950,"White plumbing van with a blue and gold wrap",{fit:"contain"}),
-  pic("p10-ice-delivery-truck.webp",1200,950,"Box truck with a penguin and a Got Ice graphic",{fit:"contain"}),
-  pic("p17-hauling-pickup.webp",1000,486,"Black pickup with a hauling company door logo",{fit:"contain"}),
+  pic("p1-detailing-van.webp",768,608,"White service van with blue striped lettering"),
+  pic("p3-utility-truck.webp",768,608,"White utility truck with blue and white graphics"),
+  pic("p6-plumbing-van.webp",1200,950,"White plumbing van with a blue and gold wrap"),
+  pic("p10-ice-delivery-truck.webp",1200,950,"Box truck with a penguin and a Got Ice graphic"),
+  pic("p17-hauling-pickup.webp",1000,486,"Black pickup with a hauling company door logo"),
   pic("p18-hvac-fleet-collage.webp",1000,1000,"Collage of pickup trucks with HVAC company graphics"),
   pic("p19-ice-cream-van-collage.webp",1000,1000,"Collage of an ice cream van with a colorful wrap"),
-  pic("p22-contractor-minivan.webp",1000,750,"White minivan with a partial wrap for a construction company",{fit:"contain"}),
-  pic("p8-event-trailer.webp",1200,950,"Black enclosed trailer with gold lettering",{fit:"contain"}),
+  pic("p22-contractor-minivan.webp",1000,750,"White minivan with a partial wrap for a construction company"),
+  pic("p8-event-trailer.webp",1200,950,"Black enclosed trailer with gold lettering"),
   pic("p11-food-truck-trailer.webp",960,960,"Red food trailer with colorful logo graphics"),
-  pic("yatai-corner-signs.webp",1600,901,"Oval and long Yatai Corner signs for sushi, hibachi, and Thai, against a brick wall",{fit:"contain"}),
-  pic("friend-leaves-banner.webp",901,1600,"Friend Leaves retractable banner for therapeutic horticulture",{fit:"contain"}),
+  pic("yatai-corner-signs.webp",1600,901,"Oval and long Yatai Corner signs for sushi, hibachi, and Thai, against a brick wall"),
+  pic("friend-leaves-banner.webp",901,1600,"Friend Leaves retractable banner for therapeutic horticulture"),
   pic("friend-leaves-window-decal.webp",901,1600,"Friend Leaves window decal with a QR code on a car window"),
-  pic("p23-storefront-window-graphics.webp",1000,750,"Storefront windows and door with printed graphics",{fit:"contain"}),
+  pic("p23-storefront-window-graphics.webp",1000,750,"Storefront windows and door with printed graphics"),
   pic("new-horizon-landscaping-flyers.webp",1600,1600,"Stack of New Horizon Landscaping flyers"),
   pic("bbq-tech-koozies.webp",901,1600,"Black BBQ Tech koozies with a grill graphic"),
   pic("call-811-stickers.webp",1600,1600,"Sheet of 811 Call Before You Dig stickers"),
   pic("p20-police-event-table.webp",720,720,"Town of Berwyn Heights Police table cover at an outreach table"),
-  pic("shop-printer-laminator.webp",1600,901,"Shop work table with a wide-format printer, vinyl, and a sign laid out",{fit:"contain"}),
+  pic("shop-printer-laminator.webp",1600,901,"Shop work table with a wide-format printer, vinyl, and a sign laid out"),
   pic("its-time-graphics-shop-box-truck-wrap-install.webp",1194,1200,"Installer on yellow scaffolding beside a box truck during a wrap"),
   pic("its-time-hoodie-portrait.webp",900,1600,"Person wearing a black hoodie with the It's Time Graphics logo",{pos:"center 22%"})
 ];
@@ -276,31 +276,15 @@ function el(tag, attrs){
   return n;
 }
 function imgEl(root, photo, eager){
-  var img = el("img",{src:root+"assets/img/"+photo.src, alt:photo.alt, width:String(photo.w), height:String(photo.h), decoding:"async"});
-  img.loading = eager ? "eager" : "lazy";
+  var img = el("img",{
+    src:root+"assets/img/"+photo.src,
+    alt:photo.alt,
+    width:String(photo.w),
+    height:String(photo.h),
+    decoding:"async",
+    loading:eager?"eager":"lazy"
+  });
   return img;
-}
-/* Native loading=lazy misses some images inside buttons. When a thumbnail
-   nears the viewport, force it to decode so a scroll never leaves a blank cell. */
-function armLazy(rootEl){
-  var imgs = rootEl.querySelectorAll("img[loading=lazy]");
-  if(!("IntersectionObserver" in window)){
-    Array.prototype.forEach.call(imgs, function(img){img.loading="eager";});
-    return;
-  }
-  var io = new IntersectionObserver(function(entries){
-    entries.forEach(function(en){
-      if(!en.isIntersecting) return;
-      var img = en.target;
-      img.loading = "eager";
-      if(!img.complete || !img.naturalWidth){
-        var src = img.getAttribute("src");
-        if(src) img.src = src;
-      }
-      io.unobserve(img);
-    });
-  }, {rootMargin:"900px 0px"});
-  Array.prototype.forEach.call(imgs, function(img){io.observe(img);});
 }
 function countLabel(n){return n+" photo"+(n===1?"":"s");}
 
@@ -446,7 +430,6 @@ function renderShowcases(){
       }
       mount.appendChild(block);
     });
-    armLazy(mount);
   });
 }
 function renderWork(){
@@ -459,16 +442,19 @@ function renderWork(){
     WORK.forEach(function(p, i){
       var image = imgEl(root, p, false);
       image.alt = "";
-      image.className = p.fit==="contain" ? "contain" : "cover";
       image.style.setProperty("--pos", p.pos || "center center");
       image.style.objectPosition = p.pos || "center center";
       var ov = el("span",{class:"ov", "aria-hidden":"true", text:p.caption});
-      var btn = el("button",{type:"button", class:"ig-item", "aria-haspopup":"dialog", "aria-label":p.caption}, image, ov);
-      btn.addEventListener("click", function(){openAt(list, i, "Our work", btn);});
+      /* A div, not a button: Chrome leaves loading=lazy images inside buttons unpainted. */
+      var btn = el("div",{class:"ig-item", role:"button", tabindex:"0", "aria-haspopup":"dialog", "aria-label":p.caption}, image, ov);
+      function open(){openAt(list, i, "Our work", btn);}
+      btn.addEventListener("click", open);
+      btn.addEventListener("keydown", function(e){
+        if(e.key==="Enter" || e.key===" "){e.preventDefault(); open();}
+      });
       grid.appendChild(btn);
     });
     mount.appendChild(grid);
-    armLazy(grid);
   });
 }
 

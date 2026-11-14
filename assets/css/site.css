@@ -117,11 +117,9 @@ footer .soc{display:grid;grid-template-columns:auto auto;justify-content:start;w
 .aci .kicker{margin:0 0 10px;font:700 .78rem/1 var(--h);letter-spacing:.14em;text-transform:uppercase;color:var(--gt)}
 .aci h3{font-size:clamp(2rem,4vw,2.8rem)}
 .aci p{margin:12px 0 0;color:var(--mut);font-size:1.05rem}
-.ig{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-top:28px}
-@media(max-width:700px){.ig{gap:3px}}
-.ig-item{position:relative;display:block;width:100%;aspect-ratio:1;padding:0;border:0;border-radius:2px;overflow:hidden;background:var(--alt);cursor:pointer;color:#fff}
-.ig-item img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:var(--pos,center center)}
-.ig-item img.contain{object-fit:contain}
+.ig{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-top:22px}
+.ig-item{position:relative;display:block;width:100%;aspect-ratio:1/1;margin:0;padding:0;border:0;border-radius:0;overflow:hidden;background:transparent;cursor:pointer;line-height:0;min-width:0}
+.ig-item img{display:block;width:100%;height:100%;object-fit:cover;object-position:var(--pos,center center)}
 .ig-item .ov{position:absolute;left:0;right:0;bottom:0;margin:0;padding:28px 10px 10px;background:linear-gradient(transparent,rgba(0,0,0,.78));color:#fff;font:600 .8rem/1.3 var(--b);opacity:0;pointer-events:none}
 @media(hover:hover) and (pointer:fine){.ig-item:hover .ov,.ig-item:focus-visible .ov{opacity:1}}
 .lb{border:0;padding:0;margin:auto;width:min(1080px,calc(100vw - 20px));height:min(920px,calc(100dvh - 20px));max-width:calc(100vw - 12px);max-height:calc(100dvh - 12px);background:#111;color:#f2f1ec;border-radius:6px;box-shadow:0 24px 80px rgba(0,0,0,.45)}
