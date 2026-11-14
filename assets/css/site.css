@@ -31,11 +31,21 @@ nav.m .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px
 .burger{display:none;margin-left:auto;background:none;border:1.5px solid #4a4d54;color:inherit;min-height:36px;padding:0 16px;border-radius:4px;font:600 .9rem var(--b)}
 @media(max-width:960px){nav.m{display:none}.burger{display:block}}
 @media(max-width:700px){.top .wrap{min-height:42px;gap:12px}.burger{min-height:32px;padding:0 12px;font-size:.82rem}.logo .lg{height:23px}}
-.mm{display:none;position:fixed;inset:0;z-index:60;background:#0E0F11;color:var(--dki);padding:calc(env(safe-area-inset-top,0px) + 20px) 24px 100px;overflow:auto}
+.mm{display:none;position:fixed;inset:0;z-index:60;background:#0E0F11;color:var(--dki);padding:calc(env(safe-area-inset-top,0px) + 20px) 24px 100px;overflow:auto;overscroll-behavior:contain}
 .mm.open{display:block}.mm .x{float:right;background:none;border:1.5px solid #4a4d54;color:inherit;min-height:44px;padding:0 16px;border-radius:4px;font:600 .9rem var(--b)}
+html.menu-open,body.menu-open{overflow:hidden}
 .mm ul{list-style:none;margin:56px 0 0;padding:0}.mm li a{display:block;padding:14px 0;border-bottom:1px solid #2a2c31;font:700 1.5rem var(--h);text-decoration:none}.mm li.sub a{font:500 1.05rem var(--b);padding:11px 0 11px 18px;color:var(--dkm)}
 .mbar{display:none}
-@media(max-width:700px){.mbar{display:grid;grid-template-columns:1fr 1fr;position:fixed;left:0;right:0;bottom:0;z-index:50;background:#0E0F11;padding-bottom:env(safe-area-inset-bottom,0px)}.mbar a{min-height:52px;display:flex;align-items:center;justify-content:center;font-weight:600;text-decoration:none;color:#f2f1ec}.mbar .q{background:var(--y);color:#0E0F11}body{padding-bottom:56px}}
+@media(max-width:700px){
+:root{--mbar-h:calc(52px + env(safe-area-inset-bottom,0px))}
+/* The bar sits in the page flow under a scrolling column, so its height is reserved and it cannot cover main or the footer. */
+body{display:flex;flex-direction:column;height:100vh;height:100dvh;overflow:hidden;padding-bottom:0}
+.top{flex:none}
+.scroller{flex:1 1 auto;min-height:0;overflow:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;scroll-padding-bottom:12px}
+.mbar{display:grid;grid-template-columns:1fr 1fr;position:static;flex:none;z-index:50;background:#0E0F11;padding-bottom:env(safe-area-inset-bottom,0px)}
+.mbar a{min-height:52px;display:flex;align-items:center;justify-content:center;font-weight:600;text-decoration:none;color:#f2f1ec}
+.mbar .q{background:var(--y);color:#0E0F11}
+}
 .logo .lg{height:30px;width:auto;display:block}footer .logo .lg{height:48px}@media(max-width:700px){.logo .lg{height:26px}}
 .top .wrap{position:relative;z-index:1}.hfw{position:absolute;inset:0;overflow:hidden;pointer-events:none}.hflag{position:absolute;right:-20px;top:-100px;width:290px;height:290px;transform:rotate(-8deg);opacity:.3;-webkit-mask-image:linear-gradient(270deg,#000 15%,transparent 80%);mask-image:linear-gradient(270deg,#000 15%,transparent 80%)}@media(max-width:700px){.hflag{width:150px;height:150px;top:-52px;right:-40px;opacity:.28}}
 .y{color:var(--y)}.ru{display:block;width:40px;height:4px;background:#C8102E;margin:22px 0 0}
