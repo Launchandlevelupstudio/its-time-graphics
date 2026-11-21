@@ -331,8 +331,8 @@ function openAt(list, i, name, opener){
   deptName = name;
   lastFocus = opener;
   show(i);
-  if(typeof lb.showModal==="function") lb.showModal();
-  else {lb.setAttribute("open",""); document.body.style.overflow="hidden";}
+  if(typeof lb.showModal==="function"){ if(!lb.open) lb.showModal(); }
+  else if(!lb.hasAttribute("open")) {lb.setAttribute("open",""); document.body.style.overflow="hidden";}
   lb.querySelector(".lb-x").focus();
 }
 function closeLb(){
@@ -482,9 +482,35 @@ var galleryReport = {
   overlap:WORK.filter(function(p){return SHOWCASE_SRCS[p.src];}).map(function(p){return p.src;})
 };
 if(typeof module!=="undefined" && module.exports) module.exports = galleryReport;
+/* Case-study pages open this same lightbox. A control with data-full (and optional
+   data-group for a set) is not a gallery catalog entry. */
+function caseSlides(nodes){
+  return nodes.map(function(n){
+    var alt=n.getAttribute("data-alt")||"";
+    return {src:n.getAttribute("data-full"), w:Number(n.getAttribute("data-w")), h:Number(n.getAttribute("data-h")), alt:alt, caption:alt};
+  });
+}
+function openCase(node){
+  var group=node.getAttribute("data-group");
+  var nodes=group?Array.prototype.slice.call(document.querySelectorAll('[data-group="'+group+'"]')):[node];
+  var i=nodes.indexOf(node);
+  openAt(caseSlides(nodes), i<0?0:i, node.getAttribute("data-title")||"Photo", node);
+}
 if(typeof document!=="undefined"){
   buildLightbox();
   renderShowcases();
   renderWork();
+  document.addEventListener("click", function(e){
+    var node=e.target.closest&&e.target.closest("[data-full]");
+    if(!node) return;
+    openCase(node);
+  });
+  document.addEventListener("keydown", function(e){
+    var node=e.target.closest&&e.target.closest("[data-full]");
+    if(!node) return;
+    if(e.key!=="Enter"&&e.key!==" ") return;
+    e.preventDefault();
+    openCase(node);
+  });
 }
 })();
