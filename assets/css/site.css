@@ -163,7 +163,7 @@ footer .soc{display:grid;grid-template-columns:auto auto;justify-content:start;w
 .cs-shot .cap{margin:8px 0 0;font:600 .9rem/1.35 var(--b);color:var(--ink)}
 .cs-shot:hover .cap,.cs-shot:focus-visible .cap,.cs-card:hover h3,.cs-card:focus-visible h3{color:var(--gt)}
 .cs-story{display:grid;gap:22px;margin-top:36px}
-@media(min-width:800px){.cs-story{grid-template-columns:1fr 1fr 1fr;gap:28px;align-items:start}}
+@media(min-width:800px){.cs-story{grid-template-columns:1fr 1fr 1fr;gap:28px;align-items:start}.cs-story:has(> :only-child){grid-template-columns:1fr;max-width:42rem}}
 .cs-story h3{font-size:1.05rem}
 .cs-story p{margin:8px 0 0}
 .cs-more{margin-top:22px}
